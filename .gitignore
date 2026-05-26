@@ -1,6 +1,8 @@
 # Carpeta generada por Containerlab
 containerlab/clab-network-gitops-lab/
 
+github-runner/
+
 # Archivos de sistema
 .DS_Store
 *.log
@@ -10,3 +12,5 @@ __pycache__/
 # Archivos sensibles
 *.env
 .env
+
+
