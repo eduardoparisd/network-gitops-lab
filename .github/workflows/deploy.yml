@@ -34,7 +34,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy network topology
-        run: /home/paris/Laboratorios/scripts/deploy-topology.sh
+        run: bash /home/paris/Laboratorios/scripts/deploy-topology.sh
 
       - name: Esperar inicializacion
         run: sleep 15
