@@ -3,6 +3,11 @@
   connection: local
   gather_facts: false
   tasks:
+    - name: Activar interfaz eth1 en PC1
+      community.docker.docker_container_exec:
+        container: clab-network-gitops-lab-pc1
+        command: ip link set eth1 up
+
     - name: Asignar IP a PC1
       community.docker.docker_container_exec:
         container: clab-network-gitops-lab-pc1
@@ -18,6 +23,11 @@
   connection: local
   gather_facts: false
   tasks:
+    - name: Activar interfaz eth1 en PC2
+      community.docker.docker_container_exec:
+        container: clab-network-gitops-lab-pc2
+        command: ip link set eth1 up
+
     - name: Asignar IP a PC2
       community.docker.docker_container_exec:
         container: clab-network-gitops-lab-pc2
