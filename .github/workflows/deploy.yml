@@ -27,7 +27,7 @@ jobs:
 
   deploy:
     name: Deploy to Network Lab
-    runs-on: [self-hosted, linux, network]
+    runs-on: [self-hosted, Linux, network]
     needs: validate
     steps:
       - name: Checkout code
