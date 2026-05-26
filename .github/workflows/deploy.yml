@@ -41,9 +41,9 @@ jobs:
       - name: Configure interfaces
         run: |
           cd /home/paris/Laboratorios/network-gitops-lab
-          ansible-playbook -i ansible/inventory/hosts.yml ansible/playbooks/01-configurar-interfaces.yml
+          sudo ansible-playbook -i ansible/inventory/hosts.yml ansible/playbooks/01-configurar-interfaces.yml
 
       - name: Configure PCs
         run: |
           cd /home/paris/Laboratorios/network-gitops-lab
-          ansible-playbook -i ansible/inventory/hosts.yml ansible/playbooks/02-configurar-pcs.yml
+          sudo ansible-playbook -i ansible/inventory/hosts.yml ansible/playbooks/02-configurar-pcs.yml
