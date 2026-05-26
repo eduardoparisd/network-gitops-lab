@@ -35,8 +35,8 @@ jobs:
 
       - name: Deploy network topology
         run: |
-          cd /home/paris/Laboratorios/network-gitops-lab
-          containerlab deploy -t topology.yml --reconfigure
+          cd /home/paris/Laboratorios/network-gitops-lab/containerlab
+          sudo containerlab deploy -t topology.yml --reconfigure
 
       - name: Configure interfaces
         run: |
