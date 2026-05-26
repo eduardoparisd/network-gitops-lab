@@ -7,7 +7,7 @@
       community.docker.docker_container_exec:
         container: clab-network-gitops-lab-pc1
         command: ip addr replace 192.168.10.2/24 dev eth1
-    
+
     - name: Agregar ruta por defecto en PC1
       community.docker.docker_container_exec:
         container: clab-network-gitops-lab-pc1
@@ -22,7 +22,7 @@
       community.docker.docker_container_exec:
         container: clab-network-gitops-lab-pc2
         command: ip addr replace 192.168.20.2/24 dev eth1
-    
+
     - name: Agregar ruta por defecto en PC2
       community.docker.docker_container_exec:
         container: clab-network-gitops-lab-pc2
