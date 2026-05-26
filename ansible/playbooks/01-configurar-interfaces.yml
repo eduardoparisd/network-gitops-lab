@@ -1,0 +1,92 @@
+---
+- name: Configurar interfaces del Router
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Configurar eth1 hacia SW1
+      community.docker.docker_container_exec:
+        container: clab-network-gitops-lab-router
+        command: >
+          vtysh -c "configure terminal"
+                -c "interface eth1"
+                -c "ip address 10.0.1.1/24"
+                -c "no shutdown"
+                -c "exit"
+                -c "ip route 192.168.10.0/24 10.0.1.2"
+                -c "end"
+                -c "write memory"
+    
+    - name: Configurar eth2 hacia SW2
+      community.docker.docker_container_exec:
+        container: clab-network-gitops-lab-router
+        command: >
+          vtysh -c "configure terminal"
+                -c "interface eth2"
+                -c "ip address 10.0.2.1/24"
+                -c "no shutdown"
+                -c "exit"
+                -c "ip route 192.168.20.0/24 10.0.2.2"
+                -c "end"
+                -c "write memory"
+      
+    - name: Activar IP Forwarding en Router
+      community.docker.docker_container_exec:
+        container: clab-network-gitops-lab-router
+        command: sysctl -w net.ipv4.ip_forward=1
+
+- name: Configurar interfaces de SW1
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Configurar eth1 de SW1 hacia Router
+      community.docker.docker_container_exec:
+        container: clab-network-gitops-lab-sw1
+        command: >
+          vtysh -c "configure terminal"
+                -c "interface eth1"
+                -c "ip address 192.168.10.1/24"
+                -c "no shutdown"
+                -c "interface eth2"
+                -c "ip address 10.0.1.2/24"
+                -c "no shutdown"
+                -c "exit"
+                -c "ip route 0.0.0.0/0 10.0.1.1"
+                -c "ip route 192.168.20.0/24 10.0.1.1"
+                -c "ip route 10.0.2.0/24 10.0.1.1"
+                -c "end"
+                -c "write memory"
+
+    - name: Activar IP Forwarding en SW1
+      community.docker.docker_container_exec:
+        container: clab-network-gitops-lab-sw1
+        command: sysctl -w net.ipv4.ip_forward=1
+
+- name: Configurar interfaces de SW2
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Configurar eth1 de SW2 hacia Router
+      community.docker.docker_container_exec:
+        container: clab-network-gitops-lab-sw2
+        command: >
+          vtysh -c "configure terminal"
+                -c "interface eth1"
+                -c "ip address 10.0.2.2/24"
+                -c "no shutdown"
+                -c "interface eth2"
+                -c "ip address 192.168.20.1/24"
+                -c "no shutdown"
+                -c "exit"
+                -c "ip route 0.0.0.0/0 10.0.2.1"
+                -c "ip route 192.168.10.0/24 10.0.2.1"
+                -c "ip route 10.0.1.0/24 10.0.2.1"
+                -c "end"
+                -c "write memory"
+
+    - name: Activar IP Forwarding en SW2
+      community.docker.docker_container_exec:
+        container: clab-network-gitops-lab-sw2
+        command: sysctl -w net.ipv4.ip_forward=1

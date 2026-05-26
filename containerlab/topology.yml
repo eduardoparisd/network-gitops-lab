@@ -1,0 +1,34 @@
+name: network-gitops-lab
+
+mgmt:
+  network: clab-mgmt
+  ipv4-subnet: 172.100.0.0/24
+
+topology:
+  nodes:
+    pc1:
+      kind: linux
+      image: alpine:latest
+    
+    sw1:
+      kind: linux
+      image: frrouting/frr:latest
+
+    router:
+      kind: linux
+      image: frrouting/frr:latest
+
+    sw2:
+      kind: linux
+      image: frrouting/frr:latest
+
+    pc2:
+      kind: linux
+      image: alpine:latest
+
+  links:
+    - endpoints: ["pc1:eth1", "sw1:eth1"]
+    - endpoints: ["sw1:eth2", "router:eth1"]
+    - endpoints: ["router:eth2", "sw2:eth1"]
+    - endpoints: ["sw2:eth2", "pc2:eth1"]
+

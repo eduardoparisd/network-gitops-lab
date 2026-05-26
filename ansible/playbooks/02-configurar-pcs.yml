@@ -1,0 +1,29 @@
+- name: Configurar PC1
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Asignar IP a PC1
+      community.docker.docker_container_exec:
+        container: clab-network-gitops-lab-pc1
+        command: ip addr replace 192.168.10.2/24 dev eth1
+    
+    - name: Agregar ruta por defecto en PC1
+      community.docker.docker_container_exec:
+        container: clab-network-gitops-lab-pc1
+        command: ip route replace default via 192.168.10.1
+
+- name: Configurar PC2
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Asignar IP a PC2
+      community.docker.docker_container_exec:
+        container: clab-network-gitops-lab-pc2
+        command: ip addr replace 192.168.20.2/24 dev eth1
+    
+    - name: Agregar ruta por defecto en PC2
+      community.docker.docker_container_exec:
+        container: clab-network-gitops-lab-pc2
+        command: ip route replace default via 192.168.20.1

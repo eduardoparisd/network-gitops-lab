@@ -1,0 +1,12 @@
+# Carpeta generada por Containerlab
+containerlab/clab-network-gitops-lab/
+
+# Archivos de sistema
+.DS_Store
+*.log
+__pycache__/
+*.pyc
+
+# Archivos sensibles
+*.env
+.env
