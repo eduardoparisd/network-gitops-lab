@@ -36,10 +36,8 @@ jobs:
       - name: Deploy network topology
         run: |
           cd /home/paris/Laboratorios/network-gitops-lab/containerlab
-          wget https://github.com/srl-labs/containerlab/releases/download/v0.54.2/containerlab_0.54.2_Linux_amd64.tar.gz
-          tar -xzf containerlab_0.54.2_Linux_amd64.tar.gz containerlab
-          chmod +x containerlab
-          ./containerlab deploy -t topology.yml --reconfigure
+          sudo containerlab destroy -t topology.yml --cleanup || true
+          sudo containerlab deploy -t topology.yml
           echo "Esperando a que los demonios de FRR (Zebra) inicialicen..."
           sleep 15
 
