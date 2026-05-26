@@ -16,7 +16,7 @@
                 -c "ip route 192.168.10.0/24 10.0.1.2"
                 -c "end"
                 -c "write memory"
-    
+
     - name: Configurar eth2 hacia SW2
       community.docker.docker_container_exec:
         container: clab-network-gitops-lab-router
@@ -29,7 +29,7 @@
                 -c "ip route 192.168.20.0/24 10.0.2.2"
                 -c "end"
                 -c "write memory"
-      
+
     - name: Activar IP Forwarding en Router
       community.docker.docker_container_exec:
         container: clab-network-gitops-lab-router
