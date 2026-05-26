@@ -36,16 +36,23 @@ jobs:
       - name: Deploy network topology
         run: |
           cd /home/paris/Laboratorios/network-gitops-lab/containerlab
-          curl -sL https://containerlab.dev/setup | BINDIR=. bash -s -- ui
+          wget https://github.com/srl-labs/containerlab/releases/download/v0.54.2/containerlab_0.54.2_Linux_amd64.tar.gz
+          tar -xzf containerlab_0.54.2_Linux_amd64.tar.gz containerlab
+          chmod +x containerlab
           ./containerlab deploy -t topology.yml --reconfigure
+          echo "Esperando a que los demonios de FRR (Zebra) inicialicen..."
+          sleep 15
 
       - name: Configure interfaces
         run: |
           cd /home/paris/Laboratorios/network-gitops-lab
+          pip install --user ansible docker requests
+          export PATH=$PATH:$HOME/.local/bin
           ansible-playbook -i ansible/inventory/hosts.yml ansible/playbooks/01-configurar-interfaces.yml
 
       - name: Configure PCs 
         run: |
           cd /home/paris/Laboratorios/network-gitops-lab
+          export PATH=$PATH:$HOME/.local/bin
           ansible-playbook -i ansible/inventory/hosts.yml ansible/playbooks/02-configurar-pcs.yml
 

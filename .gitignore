@@ -13,4 +13,8 @@ __pycache__/
 *.env
 .env
 
-
+# Containerlab temporales y binarios descargados por el runner
+containerlab/containerlab
+containerlab/*.tar.gz*
+containerlab/clab-*
+*.bak
