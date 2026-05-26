@@ -36,8 +36,8 @@ jobs:
       - name: Deploy network topology
         run: |
           cd /home/paris/Laboratorios/network-gitops-lab/containerlab
-          sudo env PATH=$PATH destroy -t topology.yml --cleanup || true
-          sudo env PATH=$PATH deploy -t topology.yml
+          sudo env PATH=$PATH containerlab destroy -t topology.yml --cleanup || true
+          sudo env PATH=$PATH containerlab deploy -t topology.yml
           echo "Esperando a que los demonios de FRR (Zebra) inicialicen..."
           sleep 15
 
